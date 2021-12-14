@@ -1,0 +1,7 @@
+var config = {};
+
+config.strengthCalcualatorHost = process.env.STRENGHTCALCULATOR_HOST||'strengthService'
+config.strengthCalcualatorURL = process.env.STRENGHTCALCULATOR_URL||'/PassportStrength'
+config.strengthCalcualatorPort = process.env.STRENGHTCALCULATOR_PORT||18605
+config.passwordWebPort = process.env.WEBSITE_PORT||8080
+module.exports = config;
