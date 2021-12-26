@@ -1,0 +1,39 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: passwordwebsite
+  name: passwordwebsite-deployment
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: passwordwebsite
+  template: 
+    metadata: 
+      labels: 
+        app: passwordwebsite
+    spec: 
+      containers: 
+          - image: sachinmahanin/passwordwebsite:latest
+            name: webappservice          
+            ports: 
+              - containerPort: 8080
+                protocol: TCP
+            env:
+              - name: STRENGHTCALCULATOR_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: STRENGHTCALCULATOR_HOST    
+              - name: STRENGHTCALCULATOR_URL
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: STRENGHTCALCULATOR_URL
+              - name: STRENGHTCALCULATOR_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: STRENGHTCALCULATOR_PORT

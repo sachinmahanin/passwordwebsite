@@ -2,12 +2,12 @@ version: "3.9"  # optional since v1.27.0
 services:
   PassWebappContainer:
     hostname: webappService
-    image: sachinmahanin/passwordwebsite
+    image: sachinmahanin/passwordwebsite:latest
     ports:
       - "8080:8080"
   PassStrengthServiceContainer:
     hostname: strengthService
-    image: sachinmahanin/passwordstrength
+    image: sachinmahanin/passwordstrength:latest
     ports:
       - "18605:18605"
     

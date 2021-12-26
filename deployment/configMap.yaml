@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-configmap
+data:
+  STRENGHTCALCULATOR_HOST: strengthservice
+  STRENGHTCALCULATOR_URL: "/PassportStrength"
+  STRENGHTCALCULATOR_PORT: "18605"
