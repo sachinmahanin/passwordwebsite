@@ -37,3 +37,34 @@ spec:
                   configMapKeyRef:
                     name: webapp-configmap
                     key: STRENGHTCALCULATOR_PORT
+              - name: PASSWORDREPEATSERVICE_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: PASSWORDREPEATSERVICE_HOST    
+              - name: PASSWORDREPEATSERVICE_URL
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: PASSWORDREPEATSERVICE_URL
+              - name: PASSWORDREPEATSERVICE_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: PASSWORDREPEATSERVICE_PORT
+              - name: COMMONPASSWORDSERVICE_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: COMMONPASSWORDSERVICE_HOST    
+              - name: COMMONPASSWORDSERVICE_URL
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: COMMONPASSWORDSERVICE_URL
+              - name: COMMONPASSWORDSERVICE_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: webapp-configmap
+                    key: COMMONPASSWORDSERVICE_PORT                    
+

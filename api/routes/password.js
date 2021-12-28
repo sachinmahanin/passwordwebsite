@@ -18,30 +18,38 @@ router.post("/test", (req, res, next) => {
 var responses = [];
 router.post("/", (req, res, next) => {
   responses = [];
-  var urls = ['http://'+  appConfig.strengthCalcualatorHost+':'+  appConfig.strengthCalcualatorPort+appConfig.strengthCalcualatorURL,'http://'+  appConfig.strengthCalcualatorHost+':'+  appConfig.strengthCalcualatorPort+appConfig.strengthCalcualatorURL];
   var completed_requests=0
   var post_data=JSON.stringify({'password': req.body.password})
  
-
-
-
-  var options = {
+  var arrOptions=[ {
     method: 'POST',
     host:appConfig.strengthCalcualatorHost,
     port:appConfig.strengthCalcualatorPort,
     path:appConfig.strengthCalcualatorURL
-
-    }
-  urls.forEach(function(url) {
-    
-   
+    },
+    {
+    method: 'POST',
+    host:appConfig.passwordRepeatServiceHost,
+    port:appConfig.passwordRepeatServicePort,
+    path:appConfig.passwordRepeatServiceURL
+    },
+    {
+      method: 'POST',
+      host:appConfig.commonPasswordServiceHost,
+      port:appConfig.commonPasswordServicePORT,
+      path:appConfig.commonPasswordServiceURL
+    },
+    ]
+    arrOptions.forEach(function(options) {
+    console.log('http://'+  options.host+':'+  options.port+options.path);
     var serviceRequest= http.request(options,function(resp) {
+
       resp.on('data', function(chunk){
         responses.push(chunk);
       });
 
       resp.on('end', function(){
-        if (completed_requests++ == urls.length - 1) {
+        if (completed_requests++ == arrOptions.length - 1) {
           // All downloads are completed
           console.log('body:', responses.join());
           res.send(responses.join())
