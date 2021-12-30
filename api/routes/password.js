@@ -10,10 +10,6 @@ const { response } = require("express");
 router.get("/", (req, res, next) => {
   res.sendFile(staticPath + 'index.html');
 });
-router.post("/test", (req, res, next) => {
-  res.send(req.body.password)
-
-});
 
 var responses = [];
 router.post("/", (req, res, next) => {
@@ -21,6 +17,7 @@ router.post("/", (req, res, next) => {
   var completed_requests=0
   var post_data=JSON.stringify({'password': req.body.password})
  
+  //list of servcies to be called with their host,port & path
   var arrOptions=[ {
     method: 'POST',
     host:appConfig.strengthCalcualatorHost,
@@ -40,8 +37,12 @@ router.post("/", (req, res, next) => {
       path:appConfig.commonPasswordServiceURL
     },
     ]
+    //Post the request to all the services one by one
     arrOptions.forEach(function(options) {
+    
     console.log('http://'+  options.host+':'+  options.port+options.path);
+    
+    //create the request
     var serviceRequest= http.request(options,function(resp) {
 
       resp.on('data', function(chunk){
@@ -50,19 +51,21 @@ router.post("/", (req, res, next) => {
 
       resp.on('end', function(){
         if (completed_requests++ == arrOptions.length - 1) {
-          // All downloads are completed
+          // All downloads are completed then join the response and send it back to the browser
           console.log('body:', responses.join());
           res.send(responses.join())
         }      
       });
-    
-
     });
+
     serviceRequest.on('error', error => {
       console.error(error)
          })
+  //post the request
   serviceRequest.write(post_data)
+
   serviceRequest.end();
+
   });//for each
 
 });
